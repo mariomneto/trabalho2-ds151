@@ -1,0 +1,28 @@
+{
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "editor.formatOnSave": true,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.arrowParens": "always",
+  "prettier.printWidth": 150,
+  "prettier.proseWrap": "preserve",
+  "prettier.semi": true,
+  "prettier.singleQuote": true,
+  "prettier.tabWidth": 4,
+  "prettier.trailingComma": "none",
+  "search.useIgnoreFiles": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "search.exclude": {
+    "**/node_modules": false
+  }
+}
