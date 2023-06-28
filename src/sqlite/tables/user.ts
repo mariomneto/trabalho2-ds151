@@ -124,7 +124,6 @@ export const authUser = async (
         user.password === dbUser.password &&
         user.userType === dbUser.userType
       ) {
-        console.log(`logado`);
         resolve(dbUser);
       }
     }

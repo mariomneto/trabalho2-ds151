@@ -6,6 +6,7 @@ import {
 import { createUsersTable, saveUser, userExistsByLogin } from './tables/user';
 import { User } from '../model/User';
 import { UserType } from '../enum/UserType';
+import { createPostsTable } from './tables/posts';
 
 enablePromise(true);
 
@@ -28,7 +29,6 @@ export const initializeSQLiteDB = async () => {
     //checando se os usuarios padrao ja existem, ja que podem ter sido criados em outra instancia do app
     const adminExists = await userExistsByLogin(db, adminLogin);
     const userExists = await userExistsByLogin(db, userLogin);
-    console.log(`users`, adminExists, userExists);
     //caso nao existem, sao criados
     if (!adminExists) {
       const admin = {
@@ -47,4 +47,5 @@ export const initializeSQLiteDB = async () => {
       await saveUser(db, user);
     }
   });
+  createPostsTable(db);
 };

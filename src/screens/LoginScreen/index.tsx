@@ -8,6 +8,8 @@ import * as S from './styles';
 import { User } from '../../model/User';
 import { authUser } from '../../sqlite/tables/user';
 import { getDBConnection } from '../../sqlite';
+import { useAppDispatch } from '../../store/Hooks';
+import { setUser } from '../../store/slice/User';
 
 interface HomeScreenProps {
   navigation: ScreenNavigationProp;
@@ -15,6 +17,7 @@ interface HomeScreenProps {
 }
 
 const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
+  const dispatch = useAppDispatch();
   const [userType, setUserType] = useState<UserType>(UserType.USER);
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -26,9 +29,14 @@ const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
       userType,
     } as User;
     const db = await getDBConnection();
-    const authenticatedUser = authUser(db, user);
+    const authenticatedUser = await authUser(db, user);
     if (authenticatedUser !== null) {
-      navigation.navigate('HomeScreen');
+      dispatch(setUser(authenticatedUser));
+      if (authenticatedUser.userType === UserType.ADMIN) {
+        navigation.navigate('AdminScreen');
+      } else {
+        navigation.navigate('HomeScreen');
+      }
     }
   };
 
