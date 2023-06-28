@@ -71,6 +71,9 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
           </S.PostItem>
         )}
       />
+      <Button size="md" color={'error'} onPress={onLogout}>
+        Logout
+      </Button>
     </S.Container>
   );
 };

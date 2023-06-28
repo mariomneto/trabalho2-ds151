@@ -9,7 +9,7 @@ import { User } from '../../model/User';
 import { authUser } from '../../sqlite/tables/user';
 import { getDBConnection } from '../../sqlite';
 import { useAppDispatch } from '../../store/Hooks';
-import { setUser } from '../../store/slice/User';
+import { resetUser, setUser } from '../../store/slice/User';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 
 interface HomeScreenProps {
@@ -49,6 +49,11 @@ const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
       text1: 'Erro',
       text2: 'Informações de login incorretas',
     });
+  };
+
+  const onLogout = () => {
+    dispatch(resetUser());
+    navigation.navigate('LoginScreen');
   };
 
   return (
