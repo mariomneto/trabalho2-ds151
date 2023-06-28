@@ -41,7 +41,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
 
   return (
     <S.Container>
-      <S.Title>{`Bem-vindo, ${username}`}</S.Title>
+      <S.Title>{`Bem-vindo, Usuário`}</S.Title>
       <S.Subtitle>
         Selecione uma foto que goste para postar um comentário!
       </S.Subtitle>
