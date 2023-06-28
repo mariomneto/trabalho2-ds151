@@ -38,7 +38,6 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ navigation, route }) => {
     const breeds = selectedBreeds.map(item => item.id).join(',');
     const limit = 10;
     getCatImages({ breeds, limit });
-    console.log('breedUpdate');
   }, [selectedBreeds]);
 
   useEffect(() => {
@@ -72,10 +71,10 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ navigation, route }) => {
       const db = await getDBConnection();
       createPost(db, item.image);
     });
-    showToast();
+    showConfirmPostToast();
   };
 
-  const showToast = () => {
+  const showConfirmPostToast = () => {
     Toast.show({
       type: 'success',
       text1: 'Sucesso',
