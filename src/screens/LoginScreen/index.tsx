@@ -16,7 +16,9 @@ interface HomeScreenProps {
 }
 
 const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
+  //dispatch para acoes do redux
   const dispatch = useAppDispatch();
+  //admin ou usuario normal
   const [userType, setUserType] = useState<UserType>(UserType.USER);
   const [login, setLogin] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -28,8 +30,10 @@ const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
       userType,
     } as User;
     const db = await getDBConnection();
+    //autentica com o sqlite (usuarios fixos na db)
     const authenticatedUser = await authUser(db, user);
     if (authenticatedUser !== null) {
+      //salva o usuario na store para gerenciamento de estado
       await dispatch(setUser(authenticatedUser));
       if (authenticatedUser.userType === UserType.ADMIN) {
         navigation.navigate('AdminScreen');
@@ -37,6 +41,7 @@ const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
         navigation.navigate('HomeScreen');
       }
     } else {
+      //mensagem de erro no login
       showLoginErrorToast();
     }
   };

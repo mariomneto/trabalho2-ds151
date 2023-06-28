@@ -29,6 +29,7 @@ const BreedScreen: React.FC<BreedScreenProps> = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
+    //tipo novo de objeto para mostrar se raca esta selecionada ou nao
     if (catBreeds && catBreeds?.length > 0) {
       const items = catBreeds.map(breed => {
         return {
@@ -41,6 +42,8 @@ const BreedScreen: React.FC<BreedScreenProps> = ({ navigation, route }) => {
   }, [catBreeds]);
 
   const onPressBreed = useCallback(
+    //useCallback para memoizacao e aumento de performance
+    //altera a lista para refletir selecionado
     (selectedBreed: BreedItem) => {
       const newItems = breedItems.map(item => {
         if (item.breed.id == selectedBreed.breed.id) {
@@ -57,6 +60,7 @@ const BreedScreen: React.FC<BreedScreenProps> = ({ navigation, route }) => {
   );
 
   const selectAll = () => {
+    //altera a lista para todos ficarem com selected verdadeiro
     const newItems = breedItems.map(item => {
       return {
         ...item,
@@ -67,6 +71,7 @@ const BreedScreen: React.FC<BreedScreenProps> = ({ navigation, route }) => {
   };
 
   const selectNone = () => {
+    //altera a lista para todos ficarem com selected falso
     const newItems = breedItems.map(item => {
       return {
         ...item,
@@ -77,6 +82,7 @@ const BreedScreen: React.FC<BreedScreenProps> = ({ navigation, route }) => {
   };
 
   const onConfirmSelection = () => {
+    //confirmando a selecao e voltando para a tela anterior
     const breeds = breedItems.map(item => item.breed);
     dispatch(setBreeds(breeds));
     navigation.goBack();

@@ -26,6 +26,7 @@ interface ImageItem {
 
 const AdminScreen: React.FC<AdminScreenProps> = ({ navigation, route }) => {
   const dispatch = useDispatch();
+  //pegando as racas selecionadas da store do redux
   const selectedBreeds = useAppSelector((state: RootState) => {
     return state.breeds;
   });
@@ -41,6 +42,7 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ navigation, route }) => {
   }, [selectedBreeds]);
 
   useEffect(() => {
+    //quando as imagens sao recebidas da api, sao convertidas para objetos que contem a informacao se estao selecionadas (falso no inicio)
     if (images) {
       const imageItems = images.map(
         image => ({ image, selected: false } as ImageItem),
@@ -56,6 +58,7 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ navigation, route }) => {
   };
 
   const onPressItem = (item: ImageItem) => {
+    //alterando a lista de itens do state para refletir a selecao da imagem passada
     const items = imageItems.map(i => {
       if (i.image.id === item.image.id) {
         const newItem = { ...i, selected: !i.selected } as ImageItem;
@@ -63,14 +66,18 @@ const AdminScreen: React.FC<AdminScreenProps> = ({ navigation, route }) => {
       }
       return i;
     });
+    //atualizando a lista
     setImageItems(items);
   };
 
   const onConfirmSelection = async () => {
+    //ao confirmar a selecao das imagens, sao salvas como posts no banco para serem acessadas pelo usuario comum
     imageItems.forEach(async item => {
+      //cada imagem vira um post
       const db = await getDBConnection();
       createPost(db, item.image);
     });
+    //confirmacao de sucesso
     showConfirmPostToast();
   };
 

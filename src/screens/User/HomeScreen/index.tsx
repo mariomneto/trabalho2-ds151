@@ -18,6 +18,7 @@ interface HomeScreenProps {
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
   const dispatch = useAppDispatch();
+  //pegando o nome do usuario da store do redux
   const username = useAppSelector((state: RootState) => {
     return state.user.login;
   });
@@ -29,20 +30,25 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
   }, []);
 
   const getPosts = async () => {
+    //conexao com o banco e recebimento dos posts
     const db = await getDBConnection();
     const posts = await getAllPosts(db);
+    //com os objetos do db nao precisamos fazer mais chamadas para a catsApi pois armazenamos as urls das imagens
     if (posts) {
       setPosts(posts);
     }
   };
 
   const onComment = async (item: Post) => {
+    //salvando o comentario do usuario
     const db = await getDBConnection();
     await setPostComment(db, item.image.id, comment);
+    //pegando os posts atualizados
     getPosts();
   };
 
   const onLogout = () => {
+    //logout: remove o usuario da store do redux e volta para o login
     dispatch(resetUser());
     navigation.navigate('LoginScreen');
   };
