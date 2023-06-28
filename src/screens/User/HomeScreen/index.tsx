@@ -6,8 +6,10 @@ import { getAllPosts, setPostComment } from '../../../sqlite/tables/posts';
 import { Post } from '../../../model/Post';
 import { getDBConnection } from '../../../sqlite';
 import * as S from './styles';
-import { useAppSelector } from '../../../store/Hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/Hooks';
 import { RootState } from '../../../store/store';
+import { Button } from '@rneui/base';
+import { resetUser } from '../../../store/slice/User';
 
 interface HomeScreenProps {
   navigation: ScreenNavigationProp;
@@ -15,6 +17,7 @@ interface HomeScreenProps {
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
+  const dispatch = useAppDispatch();
   const username = useAppSelector((state: RootState) => {
     return state.user.login;
   });
@@ -37,6 +40,11 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
     const db = await getDBConnection();
     await setPostComment(db, item.image.id, comment);
     getPosts();
+  };
+
+  const onLogout = () => {
+    dispatch(resetUser());
+    navigation.navigate('LoginScreen');
   };
 
   return (

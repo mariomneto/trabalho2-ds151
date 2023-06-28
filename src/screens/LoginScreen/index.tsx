@@ -1,16 +1,14 @@
-import { Text, View } from 'react-native';
-import { Input, Icon, CheckBox, Button } from '@rneui/themed';
+import { Button, CheckBox, Input } from '@rneui/themed';
+import { useState } from 'react';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { ScreenNavigationProp, ScreenRouteProp } from '../../../App';
 import { UserType } from '../../enum/UserType';
-import { useState } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as S from './styles';
 import { User } from '../../model/User';
-import { authUser } from '../../sqlite/tables/user';
 import { getDBConnection } from '../../sqlite';
+import { authUser } from '../../sqlite/tables/user';
 import { useAppDispatch } from '../../store/Hooks';
-import { resetUser, setUser } from '../../store/slice/User';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { setUser } from '../../store/slice/User';
+import * as S from './styles';
 
 interface HomeScreenProps {
   navigation: ScreenNavigationProp;
@@ -49,11 +47,6 @@ const LoginScreen: React.FC<HomeScreenProps> = ({ navigation, route }) => {
       text1: 'Erro',
       text2: 'Informações de login incorretas',
     });
-  };
-
-  const onLogout = () => {
-    dispatch(resetUser());
-    navigation.navigate('LoginScreen');
   };
 
   return (
